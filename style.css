@@ -44,4 +44,19 @@ a:hover {
     margin-left: 1em;
     margin-right: 1em;
   }
+  h1 {
+    font-size: 4.4em;
+    color: lightgreen;
+  }
+  h2 {
+    font-size: 3.2em;
+    color: lightgreen;
+  }
+  body {
+    color: rgb(220, 220, 220);
+    background: black;
+    font-family: monospace;
+    flex-direction: column;
+    font-size: 2.6em;
+  }
 }
