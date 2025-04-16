@@ -1,0 +1,47 @@
+body {
+  color: rgb(220, 220, 220);
+  background: black;
+  font-family: monospace;
+  flex-direction: column;
+  font-size: 1.3em;
+}
+
+ul {
+  list-style-type: square;
+}
+
+ul li::marker {
+  color: lightgreen;
+}
+
+h1 {
+  font-size: 2.2em;
+  color: lightgreen;
+}
+
+h2 {
+  font-size: 1.6em;
+  color: lightgreen;
+}
+
+a {
+  color: hotpink;
+  text-decoration-color: lightgreen;
+}
+
+a:hover {
+  color: lightgreen;
+  text-decoration-color: hotpink;
+}
+
+#main {
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+@media (max-aspect-ratio: 1/1) {
+  #main {
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+}
