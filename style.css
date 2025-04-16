@@ -43,15 +43,7 @@ a:hover {
   #main {
     margin-left: 1em;
     margin-right: 1em;
-  }
-  h1 {
-    font-size: 2.4em;
-    color: lightgreen;
-  }
-  h2 {
-    font-size: 1.5em;
-    color: lightgreen;
-  }
+  } 
   body {
     color: rgb(220, 220, 220);
     background: black;
