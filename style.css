@@ -4,6 +4,8 @@ body {
   font-family: monospace;
   flex-direction: column;
   font-size: 1.3em;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
 ul {
@@ -15,7 +17,7 @@ ul li::marker {
 }
 
 h1 {
-  font-size: 2.2em;
+  font-size: 2.1em;
   color: lightgreen;
 }
 
@@ -24,31 +26,29 @@ h2 {
   color: lightgreen;
 }
 
+h3 {
+  font-size: 1.2em;
+  color: lightgreen;
+}
+
 a {
-  color: hotpink;
-  text-decoration-color: lightgreen;
+  color: hotpink !important;
+  text-decoration-color: lightgreen !important;
 }
 
 a:hover {
-  color: lightgreen;
-  text-decoration-color: hotpink;
-}
-
-#main {
-  margin-left: 25%;
-  margin-right: 25%;
+  color: lightgreen !important;
+  text-decoration-color: hotpink !important;
 }
 
 @media (max-aspect-ratio: 1/1) {
-  #main {
-    margin-left: 1em;
-    margin-right: 1em;
-  } 
   body {
     color: rgb(220, 220, 220);
     background: black;
     font-family: monospace;
     flex-direction: column;
-    font-size: 2.6em;
+    font-size: 2.3em;
+    margin-left: 1em;
+    margin-right: 1em;
   }
 }
