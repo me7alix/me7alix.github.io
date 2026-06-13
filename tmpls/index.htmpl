@@ -30,7 +30,7 @@ index_tmpl(Post *posts, size_t count)
       <li>Advanced programming in C</li>
     </ul>
     <h2>Github stats</h2>
-    <iframe src="https://github-readme-stats.vercel.app/api?username=me7alix&show_icons=true&theme=chartreuse-dark" style="border:none;" width="467" height="195"></iframe>
+    <img id="stats" src="https://github-readme-stats.vercel.app/api?username=me7alix&show_icons=true&theme=dark" style="border:none;"></img>
     <h1>Blog posts</h1>
 	<ul>
 	$ {

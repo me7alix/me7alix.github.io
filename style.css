@@ -41,6 +41,10 @@ a:hover {
   text-decoration-color: hotpink !important;
 }
 
+#stats {
+  width: 50%;
+}
+
 @media (max-aspect-ratio: 1/1) {
   body {
     color: rgb(220, 220, 220);
@@ -50,5 +54,8 @@ a:hover {
     font-size: 2.3em;
     margin-left: 1em;
     margin-right: 1em;
+    #stats {
+      width: 100%;
+    }
   }
 }
