@@ -35,7 +35,7 @@ index_tmpl(Post *posts, size_t count)
 	<ul>
 	$ {
 		for (size_t i = 0; i < count; i++) {
-			HTML(`<li><a href="%s"><h3 style="color: inherit;">%s</h3></a></li>`,
+			HTML(`<li><a href="%s"><h2 style="color: inherit;">%s</h2></a></li>`,
 			posts[i].link, posts[i].title);
 		}
 	}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+    <h1>
+        me7aLang
+    </h1>
+    <p>
+        <strong>me7aLang</strong> (metaLang) is a general-purpose programming language created for educational purposes. The compiler is kind of toyish, written in <strong>C</strong>, with a small number of dependencies and a simple design focused on clarity and learning.
+    </p>
+    <h2>
+        Features
+    </h2>
+    <ul>
+    <li>
+        <p>
+            Written entirely in C
+        </p>
+    </li>
+    <li>
+        <p>
+            Minimal dependencies
+        </p>
+    </li>
+    <li>
+        <p>
+            Simple architecture for educational use
+        </p>
+    </li>
+    <li>
+        <p>
+            Supports a growing subset of language features
+        </p>
+    </li>
+    </ul>
+    <h3>
+        Macro features
+    </h3>
+    <p>
+        me7aLang supports object-like and function-like macros, like C, but with few extra features. Function-like macros are followed with brackets so it's much more convenient to write them.
+    </p>
+    <p>
+        You can pass blocks of code in brackets and it will be parsed as a single argument, so it's allowed to write such macros:
+    </p>
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;"><pre style="margin: 0;"><code>macro do_while(expr, body) {
+    while true {
+        block body
+
+        if !(expr) {
+            break
+        }
+    }
+}</code></pre></div>
+    <h2>
+        Getting Started
+    </h2>
+    <p>
+        Clone the repository:
+    </p>
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;"><pre style="margin: 0;"><code>git clone https://github.com/me7alix/me7aLang.git
+cd me7aLang</code></pre></div>
+    <p>
+        Build the compiler:
+    </p>
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;"><pre style="margin: 0;"><code>make release -B</code></pre></div>
+    <p>
+        Compile and run an example:
+    </p>
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;"><pre style="margin: 0;"><code>./build/release/m7c -I ./stdlib -o ./build/fib ./examples/fib.m7
+./build/fib</code></pre></div>
+    <p>
+        Add the environment variable <code>METALANG_HOME</code> with the path to the compiler. Now you don't have to provide the standard library path manually:
+    </p>
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;"><pre style="margin: 0;"><code>./build/release/m7c -o ./build/fib ./examples/fib.m7
+./build/fib</code></pre></div>
+    <h2>
+        Examples
+    </h2>
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;"><pre style="margin: 0;"><code>import "std.m7"
+
+fn main() {
+    printf("Hello, World!\n")
+}</code></pre></div>
+    <p>
+        Check the <a href="https://github.com/me7alix/me7aLang/tree/main/examples" title="">examples</a> directory to see what's currently implemented.
+    </p>
+    <h2>
+        License
+    </h2>
+    <p>
+        This project is released under the MIT License.
+    </p>
+</body>
+</html>
