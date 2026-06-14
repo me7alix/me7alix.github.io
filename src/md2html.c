@@ -108,12 +108,18 @@ void markdown_to_html(FILE *f, MDP_Node *n, int it, int lv) {
 		fprintf(f, "</a>");
 		break;
 	case MDP_NODE_BLOCK_CODE:
-		const char *style =
+		const char *div_style =
 			"background-color: #181818;"
 			"border-radius: 8px;"
-			"padding: 8px;";
-		fiprintf(f, it, "<div style=\"%s\"><pre style=\"margin: 0;\"><code>%s",
-			style, n->as.block_code.code);
+			"padding: 8px;"
+			"overflow-x: auto;"
+			"max-width: 100%;";
+		const char *pre_style =
+			"margin: 0;"
+			"white-space: pre;"
+			"overflow-x: auto;";
+		fiprintf(f, it, "<div style=\"%s\"><pre style=\"%s\"><code>%s",
+			div_style, pre_style, n->as.block_code.code);
 		fprintf(f, "</code></pre></div>\n");
 		break;
 	case MDP_NODE_ORD_LIST_ITEM:

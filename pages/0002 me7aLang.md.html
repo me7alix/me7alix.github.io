@@ -43,7 +43,7 @@
     <p>
         You can pass blocks of code in brackets and it will be parsed as a single argument, so it's allowed to write such macros:
     </p>
-    <div style="background-color: #181818;border-radius: 8px;padding: 8px;"><pre style="margin: 0;"><code>macro do_while(expr, body) {
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>macro do_while(expr, body) {
     while true {
         block body
 
@@ -58,26 +58,26 @@
     <p>
         Clone the repository:
     </p>
-    <div style="background-color: #181818;border-radius: 8px;padding: 8px;"><pre style="margin: 0;"><code>git clone https://github.com/me7alix/me7aLang.git
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>git clone https://github.com/me7alix/me7aLang.git
 cd me7aLang</code></pre></div>
     <p>
         Build the compiler:
     </p>
-    <div style="background-color: #181818;border-radius: 8px;padding: 8px;"><pre style="margin: 0;"><code>make release -B</code></pre></div>
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>make release -B</code></pre></div>
     <p>
         Compile and run an example:
     </p>
-    <div style="background-color: #181818;border-radius: 8px;padding: 8px;"><pre style="margin: 0;"><code>./build/release/m7c -I ./stdlib -o ./build/fib ./examples/fib.m7
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>./build/release/m7c -I ./stdlib -o ./build/fib ./examples/fib.m7
 ./build/fib</code></pre></div>
     <p>
         Add the environment variable <code>METALANG_HOME</code> with the path to the compiler. Now you don't have to provide the standard library path manually:
     </p>
-    <div style="background-color: #181818;border-radius: 8px;padding: 8px;"><pre style="margin: 0;"><code>./build/release/m7c -o ./build/fib ./examples/fib.m7
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>./build/release/m7c -o ./build/fib ./examples/fib.m7
 ./build/fib</code></pre></div>
     <h2>
         Examples
     </h2>
-    <div style="background-color: #181818;border-radius: 8px;padding: 8px;"><pre style="margin: 0;"><code>import "std.m7"
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>import "std.m7"
 
 fn main() {
     printf("Hello, World!\n")
