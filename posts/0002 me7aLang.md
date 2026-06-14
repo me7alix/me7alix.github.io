@@ -1,12 +1,12 @@
 # me7aLang
 
-__me7aLang__ (metaLang) is a general-purpose programming language created for educational purposes. The compiler is kind of toyish, written in **C**, with a small number of dependencies and a simple design focused on clarity and learning.
+**me7aLang** (metaLang) is a general-purpose programming language created for educational purposes. The compiler is kind of toyish, written in **C**, with a small number of dependencies and a simple design focused on clarity and learning.
 
 ## Features
-- Written entirely in C
-- Minimal dependencies
-- Simple architecture for educational use
-- Supports a growing subset of language features
+ - Written entirely in C
+ - Minimal dependencies
+ - Simple architecture for educational use
+ - Supports a growing subset of language features
 
 ### Macro features
 me7aLang supports object-like and function-like macros, like C, but with few extra features. Function-like macros are followed with brackets so it's much more convenient to write them.

@@ -243,6 +243,15 @@ MDP_Token *mdp_lex(const char *stream) {
 				break;
 
 			case '*':
+				CHN();
+				if (CHP() == '*') {
+					append(MDP_TOK_STRONG, CHN());
+				} else {
+					append(MDP_TOK_UNORD_LIST, '*');
+				}
+				while (CHP() == ' ') CHN();
+				break;
+
 			case '-':
 				append(MDP_TOK_UNORD_LIST, CHN());
 				while (CHP() == ' ') CHN();
