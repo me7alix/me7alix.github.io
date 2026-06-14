@@ -61,12 +61,10 @@ void markdown_to_html(FILE *f, MDP_Node *n, int it, int lv) {
 		fprintf(f, "<code>%s</code>", n->as.inline_code);
 		break;
 	case MDP_NODE_PARAGRAPH:
-		fiprintf(f, it, "<p>\n");
-		fiprintf(f, it+lv, "");
+		fiprintf(f, it, "<p>");
 		mdp_node_foreach (c, n->body)
 			markdown_to_html(f, c, it+lv, lv);
-		fprintf(f,"\n");
-		fiprintf(f, it, "</p>\n");
+		fprintf(f, "</p>\n");
 		break;
 	case MDP_NODE_UNORD_LIST:
 		fiprintf(f, it, "<ul>\n");
@@ -127,11 +125,9 @@ void markdown_to_html(FILE *f, MDP_Node *n, int it, int lv) {
 		break;
 	case MDP_NODE_HEADING:
 		fiprintf(f, it, "<h%u>\n", n->as.heading.level);
-		fiprintf(f, it+lv, "");
 		mdp_node_foreach (c, n->as.heading.title)
 			markdown_to_html(f, c, it+lv, lv);
-		fprintf(f,"\n");
-		fiprintf(f, it, "</h%u>\n", n->as.heading.level);
+		fprintf(f, "</h%u>\n", n->as.heading.level);
 		mdp_node_foreach (c, n->body)
 			markdown_to_html(f, c, it, lv);
 		break;

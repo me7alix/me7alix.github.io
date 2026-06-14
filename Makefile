@@ -1,5 +1,5 @@
 CC ?= gcc
-FLAGS ?= -std=c99 -g
+FLAGS ?= -std=c99 -O2
 
 main: build tmpls md2html src/main.c
 	$(CC) $(FLAGS) src/main.c '-DINDEX_TEMPLATE="../build/index.c"' -o build/main
