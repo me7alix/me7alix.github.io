@@ -5,7 +5,7 @@
 <body>
     <h1>
 me7aLang</h1>
-    <p><strong>me7aLang</strong> (metaLang) is a general-purpose programming language created for educational purposes. The compiler is kind of toyish, written in <strong>C</strong>, with a small number of dependencies and a simple design focused on clarity and learning.</p>
+    <p><strong>me7aLang</strong> (metaLang) is a general-purpose low-level programming language created for educational purposes.<br/>The compiler is kind of toyish, written in <strong>C</strong>, with a small number of dependencies and a simple design focused on clarity and learning.</p>
     <h2>
 Features</h2>
     <ul>
@@ -37,15 +37,31 @@ Macro features</h3>
 }</code></pre></div>
     <h2>
 Getting Started</h2>
-    <p>Clone the repository:</p>
+    <ol>
+    <li>
+        <p>Clone the repository:</p>
+    </li>
+    </ol>
     <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>git clone https://github.com/me7alix/me7aLang.git
 cd me7aLang</code></pre></div>
-    <p>Build the compiler:</p>
+    <ol>
+    <li>
+        <p>Build the compiler:</p>
+    </li>
+    </ol>
     <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>make release -B</code></pre></div>
-    <p>Compile and run an example:</p>
+    <ol>
+    <li>
+        <p>Compile and run an example:</p>
+    </li>
+    </ol>
     <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>./build/release/m7c -I ./stdlib -o ./build/fib ./examples/fib.m7
 ./build/fib</code></pre></div>
-    <p>Add the environment variable <code>METALANG_HOME</code> with the path to the compiler. Now you don't have to provide the standard library path manually:</p>
+    <ol>
+    <li>
+        <p>Add the environment variable <code>METALANG_HOME</code> with the path to the compiler. Now you don't have to provide the standard library path manually:</p>
+    </li>
+    </ol>
     <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>./build/release/m7c -o ./build/fib ./examples/fib.m7
 ./build/fib</code></pre></div>
     <h2>
@@ -55,7 +71,20 @@ Examples</h2>
 fn main() {
     printf("Hello, World!\n")
 }</code></pre></div>
-    <p>Check the <a href="https://github.com/me7alix/me7aLang/tree/main/examples" title="">examples</a> directory to see what's currently implemented.</p>
+    <p>Check the <a href="./examples" title="">examples</a> directory to see what’s currently implemented.</p>
+    <h2>
+Platform Support</h2>
+    <p>The compiler supports <strong>Linux</strong>, <strong>Windows</strong>, and <strong>macOS</strong>, and has been tested on Linux and Windows.</p>
+    <h2>
+Supported Assemblers</h2>
+    <ul>
+    <li>
+        <p><a href="https://flatassembler.net" title="">FASM</a></p>
+    </li>
+    <li>
+        <p><a href="https://nasm.us" title="">NASM</a></p>
+    </li>
+    </ul>
     <h2>
 License</h2>
     <p>This project is released under the MIT License.</p>
