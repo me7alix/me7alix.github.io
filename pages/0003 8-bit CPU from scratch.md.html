@@ -79,18 +79,18 @@ imma 0
 sta 2
 
 loop:
-  lda 1
-  movb
-  lda 2
-  add
-  sta 2
+    lda 1
+    movb
+    lda 2
+    add
+    sta 2
 
-  lda 0
-  immb 1
-  sub
-  sta 0
+    lda 0
+    immb 1
+    sub
+    sta 0
 
-  jnz loop
+    jnz loop
 
 lda 2
 prnta</code></pre></div>
@@ -103,20 +103,20 @@ imma 2
 sta 1
 
 loop:
-  lda 0
-  prnta
+    lda 0
+    prnta
 
-  lda 1
-  sta 2
+    lda 1
+    sta 2
 
-  movb
-  lda 0
-  add
-  sta 1
+    movb
+    lda 0
+    add
+    sta 1
 
-  lda 2
-  sta 0
+    lda 2
+    sta 0
 
-  jmp loop</code></pre></div>
+    jmp loop</code></pre></div>
 </body>
 </html>
