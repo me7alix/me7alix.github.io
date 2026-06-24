@@ -14,7 +14,9 @@ typedef enum {
 	MDP_TOK_ORD_LIST,
 	MDP_TOK_BLOCK_CODE,
 	MDP_TOK_UNORD_LIST,
+	MDP_TOK_HOR_RULE,
 	MDP_TOK_QUOTE,
+	MDP_TOK_IMAGE,
 	MDP_TOK_2NL,
 	_MDP_TOK_INLINE_START,
 	MDP_TOK_BEG_LINK,
@@ -34,9 +36,13 @@ typedef struct {
 			const char *lang;
 			const char *code;
 		} block_code;
+		struct {
+			const char *link;
+			const char *desc;
+		} link;
 		const char *inline_code;
-		char chr;
 		unsigned data;
+		char chr;
 	} as;
 } MDP_Token;
 
@@ -53,11 +59,12 @@ typedef enum {
 	MDP_NODE_ORD_LIST,
 	MDP_NODE_UNORD_LIST,
 	MDP_NODE_BLOCK_CODE,
+	MDP_NODE_HOR_RULE,
 	MDP_NODE_QUOTE,
+	MDP_NODE_IMAGE,
 
 /* Inline */
 	MDP_NODE_LINK,
-	MDP_NODE_IMAGE,
 	MDP_NODE_STRONG,
 	MDP_NODE_EMPHASIS,
 	MDP_NODE_INLINE_CODE,
@@ -159,7 +166,33 @@ MDP_Token *mdp_lex(const char *stream) {
 			break;
 
 		case ']':
-			append(MDP_TOK_END_LINK, CHN());
+			CHN();
+			if (CHP() != '(') {
+				append(MDP_TOK_CHAR, ']');
+				break;
+			}
+			int parcnt = CHN() == '(';
+			_MDP_DA(char) link = {0};
+			_MDP_DA(char) desc = {0};
+			while (CHP() != '\0') {
+				if      (CHP() == '(') parcnt++;
+				else if (CHP() == ')') parcnt--;
+				if (parcnt <= 0) break;
+				if (CHP() == '"') {
+					CHN();
+					while (CHP() != '"' && CHP() != '\0') {
+						_mdp_da_append(&desc, CHP());
+					}
+				}
+				_mdp_da_append(&link, CHN());
+			}
+			_mdp_da_append(&link, '\0');
+			_mdp_da_append(&desc, '\0');
+			_mdp_tokens_append(&toks, (MDP_Token){
+				.kind = MDP_TOK_END_LINK,
+				.as.link.link = link.items,
+				.as.link.desc = desc.items,
+			});
 			break;
 
 		case '`':
@@ -253,8 +286,18 @@ MDP_Token *mdp_lex(const char *stream) {
 				break;
 
 			case '-':
-				append(MDP_TOK_UNORD_LIST, CHN());
+				if (CHI(1) == '-' && CHI(2) == '-') {
+					CHN(); CHN();
+					append(MDP_TOK_HOR_RULE, CHN());
+				} else {
+					append(MDP_TOK_UNORD_LIST, CHN());
+				}
 				while (CHP() == ' ') CHN();
+				break;
+
+			case '!':
+				if (CHI(1) == '[') append(MDP_TOK_IMAGE, CHN());
+				else append(MDP_TOK_CHAR, CHN());
 				break;
 
 			default:
@@ -305,6 +348,9 @@ void mdp_dump_tokens(MDP_Token *toks) {
 		case MDP_TOK_BLOCK_CODE:  printf("BLOCK_CODE\n");  break;
 		case MDP_TOK_EMPHASIS:    printf("EMPHASIS\n");    break;
 		case MDP_TOK_UNORD_LIST:  printf("UNORD_LIST\n");  break;
+		case MDP_TOK_IMAGE:       printf("IMAGE\n");       break;
+		case MDP_TOK_BEG_LINK:    printf("BEG_LINK\n");    break;
+		case MDP_TOK_END_LINK:    printf("END_LINK\n");    break;
 		case MDP_TOK_EOF:         printf("EOF\n");         break;
 		case MDP_TOK_HEADING:
 			printf("HEADING(%u)\n", toks[i].as.data);
@@ -367,20 +413,34 @@ MDP_Node *_mdp_parse(MDP_Parser *p, bool is_inline);
 MDP_Node *_mdp_parse_paragraph(MDP_Parser *p) {
 	MDP_Node *n = node(MDP_NODE_PARAGRAPH, 0);
 	MDP_Node *bf_last = NULL, *last = NULL;
-	bool is_empty = true;
 	while (_mdp_is_tok_inline(peek(p))) {
 		MDP_Node *c = _mdp_parse(p, true);
 		if (!c) { next(p); continue; }
-		if (c->kind != MDP_NODE_NL) is_empty = false;
-		if (!is_empty) _mdp_node_append(&n->body, c);
+		_mdp_node_append(&n->body, c);
 		bf_last = last;
 		last = c;
 	}
-	if (!n->body || is_empty)
-		return NULL;
+	if (!n->body) return NULL;
 	_mdp_remove_nl(bf_last, last);
 	if (peek(p).kind == MDP_TOK_2NL)
 		next(p);
+	return n;
+}
+
+MDP_Node *_mdp_parse_link(MDP_Parser *p) {
+	MDP_Node *n = node(MDP_NODE_LINK, 0);
+	next(p);
+	while (
+		peek(p).kind != MDP_TOK_END_LINK &&
+		peek(p).kind != MDP_TOK_EOF
+	) {
+		MDP_Node *c = _mdp_parse(p, true);
+		if (!c) { next(p); continue; }
+		_mdp_node_append(&n->body, c);
+	}
+	if (peek(p).kind == MDP_TOK_EOF) return NULL;
+	n->as.link.link = peek(p).as.link.link;
+	n->as.link.desc = peek(p).as.link.desc;
 	return n;
 }
 
@@ -473,51 +533,35 @@ MDP_Node *_mdp_parse(MDP_Parser *p, bool is_inline) {
 			return n;
 		}
 
+		case MDP_TOK_HOR_RULE: {
+			next(p);
+			return node(MDP_NODE_HOR_RULE, 0);
+		}
+
+		case MDP_TOK_IMAGE: {
+			next(p);
+			MDP_Node *n = _mdp_parse_link(p);
+			if (n) n->kind = MDP_NODE_IMAGE;
+			return n;
+		}
+
 		default:
+			bool found = false;
+			while (
+				peek(p).kind == MDP_TOK_NL ||
+				peek(p).kind == MDP_TOK_2NL
+			) {
+				next(p);
+				found = true;
+			}
+			if (found) return _mdp_parse(p, false);
 			return _mdp_parse_paragraph(p);
 		}
 	} else {
 		switch (peek(p).kind) {
 		/* [n->body](n->as.link) */
-		case MDP_TOK_BEG_LINK: {
-			MDP_Node *n = node(MDP_NODE_LINK, 0);
-			next(p);
-			while (
-				peek(p).kind != MDP_TOK_END_LINK &&
-				peek(p).kind != MDP_TOK_EOF
-			) {
-				MDP_Node *c = _mdp_parse(p, true);
-				if (!c) { next(p); continue; }
-				_mdp_node_append(&n->body, c);
-			}
-			next(p);
-			if (!is_chr(p, '('))
-				return NULL;
-			next(p);
-			_MDP_DA(char) link = {0};
-			_MDP_DA(char) desc = {0};
-			while (peek(p).kind == MDP_TOK_CHAR) {
-				if (peek(p).as.chr == ')') break;
-				if (peek(p).as.chr == '"') {
-					next(p);
-					while (peek(p).kind == MDP_TOK_CHAR) {
-						if (peek(p).as.chr == '"') break;
-						_mdp_da_append(&desc, next(p).as.chr);
-					}
-					next(p);
-				} else {
-					_mdp_da_append(&link, next(p).as.chr);
-				}
-			}
-			_mdp_da_append(&link, '\0');
-			_mdp_da_append(&desc, '\0');
-			n->as.link.link = link.items;
-			n->as.link.desc = desc.items;
-			if (!is_chr(p, ')'))
-				return NULL;
-			next(p);
-			return n;
-		}
+		case MDP_TOK_BEG_LINK:
+			return _mdp_parse_link(p);
 
 		/* `n->body` */
 		case MDP_TOK_INLINE_CODE:
@@ -549,13 +593,6 @@ MDP_Node *_mdp_parse(MDP_Parser *p, bool is_inline) {
 			return node(MDP_NODE_NL, 0);
 
 		case MDP_TOK_CHAR:
-			if (is_chr(p, '!') && peek2(p).kind == MDP_TOK_BEG_LINK) {
-				next(p);
-				MDP_Node *n = _mdp_parse(p, true);
-				if (n) n->kind = MDP_NODE_IMAGE;
-				return n;
-			}
-
 			return _mdp_parse_text(p);
 		}
 	}
