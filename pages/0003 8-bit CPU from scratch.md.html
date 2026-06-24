@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+    <h1>
+8-bit CPU from scratch</h1>
+<img src="https://github.com/user-attachments/assets/620ae46c-2f94-48f6-afc7-2ee7c7f0beac" title="" style="width:100%;"></img>    <p>For the last 3 days I've been working on my 8-bit accumulator-based CPU <a href="https://github.com/me7alix/8CPU" title="">(8CPU)</a> in Digital Logic Simulator. My design choices aren't ideal but it's my first experience, and I think it's a good beginning.</p>
+    <p>My goal was to make a Turing-complete CPU, and I managed to achive it. To prove that my CPU is Turing complete I implemented Rule110 in my assembly. Yeah, I wrote a simple assembler for my CPU. It supports both translating code into a sequence of bytes for ROM in Digital Logic Simulator and a simulation mode for debugging.</p>
+    <h2>
+Registers</h2>
+    <ul>
+    <li>
+        <p><strong>PCTR</strong>: Program counter</p>
+    </li>
+    <li>
+        <p><strong>A</strong>: Accumulator</p>
+    </li>
+    <li>
+        <p><strong>B</strong>: General-purpose register</p>
+    </li>
+    </ul>
+    <h2>
+Set of instructions</h2>
+    <ul>
+    <li>
+        <p><code>01</code> <strong>add</strong>:   <code>A = A + B</code></p>
+    </li>
+    <li>
+        <p><code>02</code> <strong>sub</strong>:   <code>A = A - B</code></p>
+    </li>
+    <li>
+        <p><code>03</code> <strong>jmp</strong>:   <code>PCTR = IMM</code></p>
+    </li>
+    <li>
+        <p><code>04</code> <strong>jnz</strong>:   <code>jmp if A != 0</code></p>
+    </li>
+    <li>
+        <p><code>05</code> <strong>jne</strong>:   <code>jmp if A != B</code></p>
+    </li>
+    <li>
+        <p><code>06</code> <strong>imma</strong>:  <code>A = IMM</code></p>
+    </li>
+    <li>
+        <p><code>07</code> <strong>lda</strong>:   <code>A = RAM[B]</code></p>
+    </li>
+    <li>
+        <p><code>08</code> <strong>sta</strong>:   <code>RAM[B] = A</code></p>
+    </li>
+    <li>
+        <p><code>09</code> <strong>prnta</strong>: <code>print A</code></p>
+    </li>
+    <li>
+        <p><code>0A</code> <strong>immb</strong>:  <code>B = IMM</code></p>
+    </li>
+    <li>
+        <p><code>0B</code> <strong>movb</strong>:  <code>B = A</code></p>
+    </li>
+    <li>
+        <p><code>0C</code> <strong>scst</strong>:  <code>BRAM[A] = IMM</code></p>
+    </li>
+    <li>
+        <p><code>0D</code> <strong>scrf</strong>:  <code>VRAM = BRAM</code></p>
+    </li>
+    <li>
+        <p><code>0E</code> <strong>scrs</strong>:  <code>BRAM = {0}</code></p>
+    </li>
+    </ul>
+    <h2>
+Example programs</h2>
+    <p>Two numbers multiplication:</p>
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>imma 8 ; A
+sta 0
+
+imma 7 ; B
+sta 1
+
+imma 0
+sta 2
+
+loop:
+  lda 1
+  movb
+  lda 2
+  add
+  sta 2
+
+  lda 0
+  immb 1
+  sub
+  sta 0
+
+  jnz loop
+
+lda 2
+prnta</code></pre></div>
+    <p>Fibonacci sequence:</p>
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>imma 1
+sta 0
+prnta
+
+imma 2
+sta 1
+
+loop:
+  lda 0
+  prnta
+
+  lda 1
+  sta 2
+
+  movb
+  lda 0
+  add
+  sta 1
+
+  lda 2
+  sta 0
+
+  jmp loop</code></pre></div>
+</body>
+</html>
