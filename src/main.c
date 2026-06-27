@@ -34,6 +34,10 @@ int extract_id(char *str) {
 	return res;
 }
 
+int comp_posts(const void *a, const void *b) {
+	return (((Post*)b)->id - ((Post*)a)->id);
+}
+
 /* index_tmpl(Post *posts, size_t count) */
 #include INDEX_TEMPLATE
 
@@ -90,20 +94,7 @@ int main(void) {
 	closedir(dir);
 
 	/* Sorting */
-	while (true) {
-		bool sorted = true;
-		for (size_t i = 0; i < count - 1; i++) {
-			if (posts[i].id < posts[i+1].id) {
-				Post tmp = posts[i];
-				posts[i] = posts[i+1];
-				posts[i+1] = tmp;
-				sorted = false;
-			}
-		}
-		if (sorted) {
-			break;
-		}
-	}
+	qsort(posts, count, sizeof(*posts), comp_posts);
 
 	FILE *idx = fopen("./index.html", "w");
 	fprintf(idx, "%s", index_tmpl(posts, count));
