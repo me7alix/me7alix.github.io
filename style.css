@@ -41,8 +41,34 @@ a:hover {
   text-decoration-color: hotpink !important;
 }
 
-#stats {
-  width: 50%;
+#nickname2 {
+  background: linear-gradient(45deg, hotpink, lightgreen);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#nickname {
+  background: linear-gradient(
+    90deg,
+    hotpink,
+    lightgreen,
+    hotpink
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: moveGradient 3s linear infinite;
+}
+
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
 }
 
 @media (max-aspect-ratio: 1/1) {
