@@ -73,6 +73,11 @@ int main(void) {
 		sprintf(md, "./posts/%s", file);
 		sprintf(html, "./pages/%s.html", file);
 
+		/* Changes spaces to underscores */
+		for (size_t i = 0; html[i]; i++) {
+			if (html[i] == ' ') html[i] = '_';
+		}
+
 		const char *mdf = "./build/md2html '%s' '%s'";
 		sprintf(cmd, mdf, md, html);
 
