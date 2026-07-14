@@ -71,12 +71,7 @@ int main(void) {
 		char cmd[1024];
 
 		sprintf(md, "./posts/%s", file);
-		sprintf(html, "./pages/%s.html", file);
-
-		/* Changes spaces to underscores */
-		for (size_t i = 0; html[i]; i++) {
-			if (html[i] == ' ') html[i] = '_';
-		}
+		sprintf(html, "./pages/%04d.html", id);
 
 		const char *mdf = "./build/md2html '%s' '%s'";
 		sprintf(cmd, mdf, md, html);
@@ -84,6 +79,14 @@ int main(void) {
 		char *name = xstrdup(file);
 		name[len-3] = '\0';
 		name += 5;
+
+		/* Ensure unique ID before adding new post */
+		for (size_t i = 0; i < count; i++) {
+			if (posts[i].id == id) {
+				fprintf(stderr, "Post %d already exists. Choose a different ID.\n", id);
+				return 1;
+			}
+		}
 
 		posts[count++] = (Post){
 			.id = id,
