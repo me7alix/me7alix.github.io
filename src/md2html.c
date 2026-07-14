@@ -26,11 +26,8 @@ char *read_file(const char *filename) {
 	return buffer;
 }
 
-#define fiprintf(stream, intd, ...) \
-	do { \
-		fprintf(f, "%*s", intd, ""); \
-		fprintf(f, __VA_ARGS__); \
-	} while(0)
+#define fiprintf(stream, intd, fmt, ...) \
+	fprintf(f, "%*s"fmt, intd, "", ##__VA_ARGS__);
 
 void markdown_to_html(FILE *f, MDP_Node *n, int it, int lv) {
 	switch (n->kind) {
@@ -40,6 +37,7 @@ void markdown_to_html(FILE *f, MDP_Node *n, int it, int lv) {
 		fprintf(f, "	<link rel=\"stylesheet\" href=\"../style.css\" />\n");
 		fprintf(f, "</head>\n");
 		fprintf(f, "<body>\n");
+		fiprintf(f, lv, "<a href=\"/\" class=\"back-button\">&larr;</a>\n");
 		mdp_node_foreach (c, n->body)
 			markdown_to_html(f, c, it+lv, lv);
 		fprintf(f, "</body>\n");
