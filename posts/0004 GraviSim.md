@@ -1,0 +1,11 @@
+# GraviSim
+
+![quadtree](https://github.com/me7alix/gravisim/blob/main/quadtree.png?raw=true)
+
+I always wondered how people make huge N-body simulations. I had already made a small simulation using the naive O(n^2) algorithm, but you can't really run simulations with more than 500 objects using it. In order to figure out how larger simulations work, I decided to make my own simulation ([gravisim](https://github.com/me7alix/gravisim)). I remembered watching a YouTube video where the simulation was based on quadtrees. I'm somewhat familiar with quadtrees, so I chose that algorithm to implement.
+
+My first version was quite slow. To make it more pleasant to look at, I adjusted the parameters of the simulation, which increased the FPS by around 15. The next thing I thought about was multithreading. The hottest part of the simulation is calculating the forces, so I decided to parallelize it. After implementing that, the FPS increased dramatically to around 60.
+
+![galaxy](/assets/0004/galaxy.png)
+
+I was pleased with the result, but the fact that the FPS decreased a lot during the simulation made me sick. I knew what was wrong, so I immediately started working on a solution. The problem was with the logic that controlled the depth of the tree. The depth was a constant value, which makes the simulation inefficient in large concentrations of objects. I fixed that and the FPS became quite stable.
