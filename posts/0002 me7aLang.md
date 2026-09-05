@@ -17,10 +17,7 @@ You can pass blocks of code in brackets and it will be parsed as a single argume
 macro do_while(expr, body) {
     while true {
         block body
-
-        if !(expr) {
-            break
-        }
+        if !(expr) do break
     }
 }
 ```
@@ -57,7 +54,7 @@ fn main() {
     printf("Hello, World!\n")
 }
 ```
-Check the [examples](./examples) directory to see what’s currently implemented.
+Check the [examples](https://github.com/me7alix/me7aLang/tree/main/examples) directory to see what’s currently implemented.
 
 ## Platform Support
 
@@ -67,6 +64,7 @@ The compiler supports **Linux**, **Windows**, and **macOS**, and has been tested
 
 - [FASM](https://flatassembler.net)
 - [NASM](https://nasm.us)
+- GAS (aarch64)
 
 ## License
 
