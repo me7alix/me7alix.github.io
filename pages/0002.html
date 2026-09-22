@@ -5,8 +5,8 @@
 <body>
     <a href="/" class="back-button">&larr;</a>
     <h1>
-me7aLang</h1>
-    <p><strong>me7aLang</strong> (metaLang) is a general-purpose low-level programming language created for educational purposes.<br/>The compiler is kind of toyish, written in <strong>C</strong>, with a small number of dependencies and a simple design focused on clarity and learning.</p>
+metaLang</h1>
+    <p><strong>metaLang</strong> is a general-purpose low-level programming language created for educational purposes.<br/>The compiler is kind of toyish, written in <strong>C</strong>, with a small number of dependencies and a simple design focused on clarity and learning.</p>
     <h2>
 Features</h2>
     <ul>
@@ -25,7 +25,7 @@ Features</h2>
     </ul>
     <h3>
 Macro features</h3>
-    <p>me7aLang supports object-like and function-like macros, like C, but with few extra features. Function-like macros are followed with brackets so it's much more convenient to write them.</p>
+    <p>metaLang supports object-like and function-like macros, like C, but with few extra features. Function-like macros are followed with brackets so it's much more convenient to write them.</p>
     <p>You can pass blocks of code in brackets and it will be parsed as a single argument, so it's allowed to write such macros:</p>
     <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>macro do_while(expr, body) {
     while true {
@@ -40,8 +40,8 @@ Getting Started</h2>
         <p>Clone the repository:</p>
     </li>
     </ol>
-    <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>git clone https://github.com/me7alix/me7aLang.git
-cd me7aLang</code></pre></div>
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>git clone https://github.com/me7alix/metaLang.git
+cd metaLang</code></pre></div>
     <ol>
     <li>
         <p>Build the compiler:</p>
@@ -53,23 +53,23 @@ cd me7aLang</code></pre></div>
         <p>Compile and run an example:</p>
     </li>
     </ol>
-    <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>./build/release/m7c -I ./stdlib -o ./build/fib ./examples/fib.m7
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>./build/release/mtlc -I ./stdlib -o ./build/fib ./examples/fib.mtl
 ./build/fib</code></pre></div>
     <ol>
     <li>
         <p>Add the environment variable <code>METALANG_HOME</code> with the path to the compiler. Now you don't have to provide the standard library path manually:</p>
     </li>
     </ol>
-    <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>./build/release/m7c -o ./build/fib ./examples/fib.m7
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>./build/release/mtlc -o ./build/fib ./examples/fib.mtl
 ./build/fib</code></pre></div>
     <h2>
 Examples</h2>
-    <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>import "std.m7"
+    <div style="background-color: #181818;border-radius: 8px;padding: 8px;overflow-x: auto;max-width: 100%;"><pre style="margin: 0;white-space: pre;overflow-x: auto;"><code>import "std.mtl"
 
 fn main() {
     printf("Hello, World!\n")
 }</code></pre></div>
-    <p>Check the <a href="https://github.com/me7alix/me7aLang/tree/main/examples" title="">examples</a> directory to see what’s currently implemented.</p>
+    <p>Check the <a href="https://github.com/me7alix/metaLang/tree/main/examples" title="">examples</a> directory to see what’s currently implemented.</p>
     <h2>
 Platform Support</h2>
     <p>The compiler supports <strong>Linux</strong>, <strong>Windows</strong>, and <strong>macOS</strong>, and has been tested on Linux and Windows.</p>
@@ -77,10 +77,7 @@ Platform Support</h2>
 Supported Assemblers</h2>
     <ul>
     <li>
-        <p><a href="https://flatassembler.net" title="">FASM</a></p>
-    </li>
-    <li>
-        <p><a href="https://nasm.us" title="">NASM</a></p>
+        <p><a href="https://nasm.us" title="">NASM</a> (amd64)</p>
     </li>
     <li>
         <p>GAS (aarch64)</p>
